@@ -208,29 +208,33 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
     if(GetPVarInt(playerid, "_flashShells"))
     {
-        // Not the fastest loop, but will do for testing.
-        for(new i = 0; i<GetMaxPlayers(); ++i)
+        if(weaponid == 25)
         {
-            if(IsPlayerInRangeOfPoint(i, 15.0, fX, fY, fZ))
+            // Not the fastest loop, but will do for testing.
+             for(new i = 0; i<GetMaxPlayers(); ++i)
             {
-                new
-                    Float:iPos[3];
+                if(IsPlayerInRangeOfPoint(i, 15.0, fX, fY, fZ))
+                {
+                    new
+                        Float:iPos[3];
         
-                GetPlayerPos(i, posArr{iPos});
-                PlayerPlaySound(i, 1159, posArr{iPos});
+                    GetPlayerPos(i, posArr{iPos});
+                    PlayerPlaySound(i, 1159, posArr{iPos});
 
-                PlayerTextDrawShow(i, _flashbangEffect[i]); // Flash textdraw to flash the player
-                SetTimerEx("toggleFlashEffect", seconds(2), 0, "i", i); // Timer to destroy the textdraw
+                    PlayerTextDrawShow(i, _flashbangEffect[i]); // Flash textdraw to flash the player
+                    SetTimerEx("toggleFlashEffect", seconds(2), 0, "i", i); // Timer to destroy the textdraw
 
-                SendClientMessage(i, COL_RED, "SRV: You have been blinded by a flashbang!");
+                    SendClientMessage(i, COL_RED, "SRV: You have been blinded by a flashbang!");
 
-                _flashbangTag = Create3DTextLabel("FLASHED!", 0x008080FF, posArr{iPos}, 25.0, 0, 1);
-                Attach3DTextLabelToPlayer(_flashbangTag, i, 0.0, 0.0, 1.5);
+                    _flashbangTag = Create3DTextLabel("FLASHED!", 0x008080FF, posArr{iPos}, 25.0, 0, 1);
+                    Attach3DTextLabelToPlayer(_flashbangTag, i, 0.0, 0.0, 1.5);
+                }
             }
-        }
-        //Create3DTextLabel("A Flashbang landed here!", COL_RED, fX, fY, fZ, 40.0, 0, 0); // This can be revised or removed
+            //Create3DTextLabel("A Flashbang landed here!", COL_RED, fX, fY, fZ, 40.0, 0, 0); // This can be revised or removed
 
-        //Toggle the flash shells once the amount loaded in has been completed.
+            //Toggle the flash shells once the amount loaded in has been completed.
+        }
+        
     }
     return 1;
 }
