@@ -131,7 +131,6 @@ public OnPlayerDisconnect(playerid, reason)
 	return 1;
 }
 
-
 public OnPlayerUpdate(playerid)
 {
 
