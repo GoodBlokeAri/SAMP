@@ -1,11 +1,22 @@
 /*
-	(ASCII HOLDER)
+	  █████▒██▓ ██▒   █▓▓█████  ██▀███   ██▓███  
+	▓██   ▒▓██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒▓██░  ██▒
+	▒████ ░▒██▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒▓██░ ██▓▒
+	░▓█▒  ░░██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄  ▒██▄█▓▒ ▒
+	░▒█░   ░██░   ▒▀█░  ░▒████▒░██▓ ▒██▒▒██▒ ░  ░
+	 ▒ ░   ░▓     ░ ▐░  ░░ ▒░ ░░ ▒▓ ░▒▓░▒▓▒░ ░  ░
+	 ░      ▒ ░   ░ ░░   ░ ░  ░  ░▒ ░ ▒░░▒ ░     
+	 ░ ░    ▒ ░     ░░     ░     ░░   ░ ░░       
+	        ░        ░     ░  ░   ░              
+	                ░                           
 
-	> MySQL Base SA-MP Gamemode
-	> Copyright 	© 	2016 		ARI
 
-	> SA-MP Forums: 						http://forum.sa-mp.com/member.php?u=194384
+	> FiveRP SA-MP Gamemode
+	> Copyright 	© 	2016 		FiveRP
 
+	> SA-MP Forums: 				http://forum.sa-mp.com/member.php?u=194384
+
+	> Website:						http://www.fiverp.net
 
 	> Authors:					
 									Ari
@@ -22,6 +33,7 @@
 	http://www.sa-mp.com/
 
 
+
 	Notepad:
 
 	*Move all MySQL to it's own file "mysql.pwn"
@@ -33,63 +45,63 @@
 */
 
 /* ------------------------------------------------------------- */
-/*							LIBRARIES							 */
+/*			LIBRARIES				*/
 
-#include					<a_samp>			// SA-MP Include
-#include 					<a_mysql>			// MySQL Include
+#include		<a_samp>			// SA-MP Include
+#include 		<a_mysql>			// MySQL Include
 
-#include					<zcmd>				// ZCMD Comamnd processor
-#include					<sscanf2>			// SSCANF Include
-#include					<streamer>			// Incognito's Object Streamer
-
-
-/* ------------------------------------------------------------- */
-/*							MACROS								 */
-
-#define  					posArr{%0}  				%0[0], %0[1], %0[2]
-#define  					posArrEx{%0} 				%0[0], %0[1], %0[2], %0[3]
-
-
-#define     				seconds(%0)     			%0 * 1000
-#define     				minutes(%0)     			%0 * seconds(60)
-#define     				hours(%0)       			%0 * minutes(60)
-#define     				days(%0)        			%0 * hours(24)
+#include		<zcmd>				// ZCMD Comamnd processor
+#include		<sscanf2>			// SSCANF Include
+#include		<streamer>			// Incognito's Object Streamer
 
 
 /* ------------------------------------------------------------- */
-/*							PRECONFIG							 */
+/*			MACROS					 */
+
+#define  		posArr{%0}  				%0[0], %0[1], %0[2]
+#define  		posArrEx{%0} 				%0[0], %0[1], %0[2], %0[3]
+
+
+#define     		seconds(%0)     			%0 * 1000
+#define     		minutes(%0)     			%0 * seconds(60)
+#define     		hours(%0)       			%0 * minutes(60)
+#define     		days(%0)        			%0 * hours(24)
+
+
+/* ------------------------------------------------------------- */
+/*			PRECONFIG				 */
 
 
 
 /* ------------------------------------------------------------- */
-/*							COLOURS								 */
+/*			COLOURS					 */
 
-//             				COL_NAME                 	0xRRGGBBAA
-//             				EMBED_NAME               	"{RRGGBB}"
+//             		COL_NAME                 	0xRRGGBBAA
+//             		EMBED_NAME               	"{RRGGBB}"
 
-#define 					COL_WHITE 					0xFFFFFFFF
-#define 					COL_GREY 					0xCECECEFF
-#define						COL_ORANGE					0xFFA800CC
-#define 					COL_RED		 				0xFF0000AA
-#define 					COL_GREEN		 			0x00FF00AA
-#define 					COL_PURPLE 					0xC2A2DAAA
-#define 					COL_YELLOW 					0xFFFF00AA
-#define 					COL_DPURPLE 				0x6A15EAC8
-#define 					COL_PURPLE 					0xC2A2DAAA
-#define						COL_PINK					0xFF1580EA
+#define 		COL_WHITE 			0xFFFFFFFF
+#define 		COL_GREY 			0xCECECEFF
+#define			COL_ORANGE			0xFFA800CC
+#define 		COL_RED		 		0xFF0000AA
+#define 		COL_GREEN			0x00FF00AA
+#define 		COL_PURPLE 			0xC2A2DAAA
+#define 		COL_YELLOW 			0xFFFF00AA
+#define 		COL_DPURPLE 			0x6A15EAC8
+#define 		COL_PURPLE 			0xC2A2DAAA
+#define			COL_PINK			0xFF1580EA
 
-#define						EMBED_PURPLE				"{BF15EA}"
-#define						EMBED_GREY					"{CECECE}"
-#define						EMBED_BLUE					"{1580EA}"
+#define			EMBED_PURPLE			"{BF15EA}"
+#define			EMBED_GREY			"{CECECE}"
+#define			EMBED_BLUE			"{1580EA}"
 
 
 /* ------------------------------------------------------------- */
-/*							DEFINITIONS							 */
+/*			DEFINITIONS				 */
 
-#define 					SPAWN_X 					1660.0837
-#define 					SPAWN_Y 					-1429.3831
-#define 					SPAWN_Z 					12.5338
-#define 					SPAWN_A 					0.00
+#define 		SPAWN_X 			1660.0837
+#define 		SPAWN_Y 			-1429.3831
+#define 		SPAWN_Z 			12.5338
+#define 		SPAWN_A 			0.00
 
 enum
 {
@@ -99,24 +111,10 @@ enum
 	DIALOG_QUERY2
 };
 
-
-/* ------------------------------------------------------------- */
-/*							MACROS								 */
-
-#define  					posArr{%0}  				%0[0], %0[1], %0[2]
-#define  					posArrEx{%0} 				%0[0], %0[1], %0[2], %0[3]
-
-
-#define     				seconds(%0)     			%0 * 1000
-#define     				minutes(%0)     			%0 * seconds(60)
-#define     				hours(%0)       			%0 * minutes(60)
-#define     				days(%0)        			%0 * hours(24)
-
-
 /* -------------------------------------------------------------*/
 /*							NATIVES								*/
 
-native 						gpci(playerid, serial[], maxlen);
+native 			gpci(playerid, serial[], maxlen);
 
 /* ------------------------------------------------------------- */
 /*                          ARRAYS                               */
@@ -124,14 +122,14 @@ native 						gpci(playerid, serial[], maxlen);
 
 
 /* ------------------------------------------------------------- */
-/*							MYSQL 								 */
+/*			    MYSQL 				 */
 
-new 						g_ConnectionHandle=			-1;
+new 			    g_ConnectionHandle=			-1;
 
-#define 					MYSQL_HOST					"localhost"
-#define 					MYSQL_NAME					"root"
-#define 					MYSQL_DB					"samp"
-#define 					MYSQL_PASS					""
+#define 		MYSQL_HOST				"localhost"
+#define 		MYSQL_NAME				"root"
+#define 		MYSQL_DB				"samp"
+#define 		MYSQL_PASS				""
 
 enum E_PLAYER
 {
@@ -167,14 +165,14 @@ new AccountData[MAX_PLAYERS][E_PLAYER];
 
 
 /* ------------------------------------------------------------- */
-/*							PUBLIC/CALLBACK						 */
+/*			PUBLIC/CALLBACK				 */
 
 public OnGameModeInit()
 {
 	print("[DEBUG] OnGameModeInit");
 	Server_AntiDeAMX();
 
-	print("		                                           <ari/SAMP/>");
+	print("		                                           <fiverp/SAMP/>");
 
 
 
