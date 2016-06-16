@@ -22,7 +22,6 @@
 	http://www.sa-mp.com/
 
 
-
 	Notepad:
 
 	*Move all MySQL to it's own file "mysql.pwn"
