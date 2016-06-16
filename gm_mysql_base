@@ -1,22 +1,11 @@
 /*
-	  █████▒██▓ ██▒   █▓▓█████  ██▀███   ██▓███  
-	▓██   ▒▓██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒▓██░  ██▒
-	▒████ ░▒██▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒▓██░ ██▓▒
-	░▓█▒  ░░██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄  ▒██▄█▓▒ ▒
-	░▒█░   ░██░   ▒▀█░  ░▒████▒░██▓ ▒██▒▒██▒ ░  ░
-	 ▒ ░   ░▓     ░ ▐░  ░░ ▒░ ░░ ▒▓ ░▒▓░▒▓▒░ ░  ░
-	 ░      ▒ ░   ░ ░░   ░ ░  ░  ░▒ ░ ▒░░▒ ░     
-	 ░ ░    ▒ ░     ░░     ░     ░░   ░ ░░       
-	        ░        ░     ░  ░   ░              
-	                ░                           
+	(ASCII HOLDER)
 
+	> MySQL Base SA-MP Gamemode
+	> Copyright 	© 	2016 		ARI
 
-	> FiveRP SA-MP Gamemode
-	> Copyright 	© 	2016 		FiveRP
+	> SA-MP Forums: 						http://forum.sa-mp.com/member.php?u=194384
 
-	> SA-MP Forums: 				http://forum.sa-mp.com/member.php?u=194384
-
-	> Website:						http://www.fiverp.net
 
 	> Authors:					
 									Ari
@@ -186,7 +175,7 @@ public OnGameModeInit()
 	print("[DEBUG] OnGameModeInit");
 	Server_AntiDeAMX();
 
-	print("		                                           <fiverp/SAMP/>");
+	print("		                                           <ari/SAMP/>");
 
 
 
