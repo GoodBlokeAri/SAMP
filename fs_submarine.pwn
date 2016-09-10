@@ -142,7 +142,7 @@ public OnFilterScriptInit()
 
     print("                                                <ari/SAMP/>");
 
-    _submarineObject = CreateDynamicObject(9958, 2658.7402, 3009.6284, 5.6771, 0.00, 0.00, 90.0000, 0, 0);
+    _submarineObject = CreateDynamicObject(9958, 2658.7402, 3009.6284, 5.6771, 0.00, 0.00, -90.0000, 0, 0);
 
     return 1;
 }
@@ -188,6 +188,11 @@ public OnPlayerUpdate(playerid)
         new iKeys, iUD, iLR;
         GetPlayerKeys(playerid, iKeys, iUD, iLR);
 
+
+        /*
+            Make pressing W/S move you across the axis that the object is facing
+        */
+
         if(iUD > 0) // Pressing DOWN
         {
             new Float:fObjPos[3];
@@ -205,22 +210,27 @@ public OnPlayerUpdate(playerid)
             print("SRV: The Submarine is moving FORWARD");
         }
 
-        if(iLR > 0) // Pressing LEFT    
+        if(iLR > 0) // LEFT
         {
+            new Float:fObjRot[3];
+            GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
+            SetDynamicObjectRot(_submarineObject, fObjRot[0], fObjRot[1], fObjRot[2]-5);
+
             new Float:fObjPos[3];
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
-
-            MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]-100, fObjPos[2], 50);
-            print("SRV: The Submarine is moving LEFT");
+            SetPlayerCameraLookAt(playerid, posArr{fObjPos});
         }
-        else if(iLR < 0) // Pressing RIGHT
+        else if(iLR < 0) // RIGHT
         {
+            new Float:fObjRot[3];
+            GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
+            SetDynamicObjectRot(_submarineObject, fObjRot[0], fObjRot[1], fObjRot[2]+5);
+
             new Float:fObjPos[3];
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
-
-            MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]+100, fObjPos[2], 50);
-            print("SRV: The Submarine is moving RIGHT");
+            SetPlayerCameraLookAt(playerid, posArr{fObjPos});
         }
+
     }
 
     return 1;
@@ -280,6 +290,8 @@ CMD:pilotsubmarine(playerid, params[])
     return 1;
 }
 
+/*
+Change to button presses
 CMD:dive(playerid, params[]) // this doesnt work
 {
     if(GetPVarInt(playerid, "_subDriver")) 
@@ -307,6 +319,7 @@ CMD:dive(playerid, params[]) // this doesnt work
     else SendClientMessage(playerid, COL_GREY, "ERR: You're not piloting the submarine!");
     return 1;
 }
+*/
 
 CMD:rotatesubmarine(playerid, params[]) // Eventually turn into a key press
 {
