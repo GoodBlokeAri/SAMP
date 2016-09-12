@@ -181,18 +181,6 @@ public OnPlayerSpawn(playerid)
     return 1; 
 }  
 
-/*
-
-    new Float:fObjRot[3];
-    GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
-    if(fObjRot[2] > 0 && < 90) // 
-    else if(fObjRot[2] > 90 && < 180)
-    else if(fObjRot[2] > 180 && < 270)
-    else if(fObjRot[2] > 270 && < 360)
-
-*/
-
-
 public OnPlayerUpdate(playerid)
 {
 
@@ -211,12 +199,7 @@ public OnPlayerUpdate(playerid)
             new Float:fObjPos[3]/*, Float:fObjRot[3]*/;
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
             //GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
-/*
-            if(fObjRot[2] > 0 && < 90) MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1], fObjPos[2]-100, 50); // move on -Z
-            else if(fObjRot[2] > 90 && < 180) MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]-100, fObjPos[2], 50); // move -Y
-            else if(fObjRot[2] > 180 && < 270) MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1], fObjPos[2]+100, 50); // move +Z
-            else if(fObjRot[2] > 270 && < 360) MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]+100, fObjPos[2], 50); // move +Y
-*/
+
             MoveDynamicObject(_submarineObject, fObjPos[0]-100, fObjPos[1], fObjPos[2], 50);
             print("SRV: The Submarine is moving BACKWARDS");
         }
@@ -225,12 +208,7 @@ public OnPlayerUpdate(playerid)
             new Float:fObjPos[3]/*, Float:fObjRot[3]*/;
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
             //GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
-/*
-            if(fObjRot[2] > 0 && < 90)          MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1], fObjPos[2]-100, 50); // move on -Z
-            else if(fObjRot[2] > 90 && < 180)   MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]-100, fObjPos[2], 50); // move -Y
-            else if(fObjRot[2] > 180 && < 270)  MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1], fObjPos[2]+100, 50); // move +Z
-            else if(fObjRot[2] > 270 && < 360)  MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]+100, fObjPos[2], 50); // move +Y
-*/
+
             MoveDynamicObject(_submarineObject, fObjPos[0]+100, fObjPos[1], fObjPos[2], 50);
             print("SRV: The Submarine is moving FORWARD");
         }
