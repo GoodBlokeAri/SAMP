@@ -8,7 +8,7 @@
          /_/    \_\_|  \_\_____|
 
 
-    > NEAF Submarine Filterscript
+    > RAF Submarine Filterscript
     > Copyright     ©   2016        Ari
 
     > SA-MP Forums:                 http://forum.sa-mp.com/member.php?u=194384
@@ -42,8 +42,9 @@
     > SetObjectRotation when diving etc
     > Periscope??
     > Need materials to use rockets? 
-    > Surfacing is done via command or keybind, and is automated so people cant fly the submarine
-    
+    >>>> Surfacing is done via command or keybind, and is automated so people cant fly the submarine
+    > if submarine is surfacing above highest water height dont let it go higher in OnPlayerUpdate keys
+
     >Shift to boost speed
     >Health so people can damage it
     >Drop mines to stop pursuit / enemy boats approaching when stationary
@@ -142,7 +143,7 @@ public OnFilterScriptInit()
 
     print("                                                <ari/SAMP/>");
 
-    _submarineObject = CreateDynamicObject(9958, 2658.7402, 3009.6284, 5.6771, 0.00, 0.00, -90.0000, 0, 0);
+    _submarineObject = CreateDynamicObject(9958, 2994.8579, 1953.5393, 5.0, 0.0000, 0.0000, 0.0000, 0, 0);
 
     return 1;
 }
@@ -180,6 +181,18 @@ public OnPlayerSpawn(playerid)
     return 1; 
 }  
 
+/*
+
+    new Float:fObjRot[3];
+    GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
+    if(fObjRot[2] > 0 && < 90) // 
+    else if(fObjRot[2] > 90 && < 180)
+    else if(fObjRot[2] > 180 && < 270)
+    else if(fObjRot[2] > 270 && < 360)
+
+*/
+
+
 public OnPlayerUpdate(playerid)
 {
 
@@ -193,24 +206,36 @@ public OnPlayerUpdate(playerid)
             Make pressing W/S move you across the axis that the object is facing
         */
 
-        if(iUD > 0) // Pressing DOWN
+        if(iUD == KEY_DOWN) // Pressing DOWN
         {
-            new Float:fObjPos[3];
+            new Float:fObjPos[3]/*, Float:fObjRot[3]*/;
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
-
+            //GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
+/*
+            if(fObjRot[2] > 0 && < 90) MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1], fObjPos[2]-100, 50); // move on -Z
+            else if(fObjRot[2] > 90 && < 180) MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]-100, fObjPos[2], 50); // move -Y
+            else if(fObjRot[2] > 180 && < 270) MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1], fObjPos[2]+100, 50); // move +Z
+            else if(fObjRot[2] > 270 && < 360) MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]+100, fObjPos[2], 50); // move +Y
+*/
             MoveDynamicObject(_submarineObject, fObjPos[0]-100, fObjPos[1], fObjPos[2], 50);
             print("SRV: The Submarine is moving BACKWARDS");
         }
-        else if(iUD < 0) // Pressing UP
+        else if(iUD == KEY_UP) // Pressing UP
         {
-            new Float:fObjPos[3];
+            new Float:fObjPos[3]/*, Float:fObjRot[3]*/;
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
-
+            //GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
+/*
+            if(fObjRot[2] > 0 && < 90)          MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1], fObjPos[2]-100, 50); // move on -Z
+            else if(fObjRot[2] > 90 && < 180)   MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]-100, fObjPos[2], 50); // move -Y
+            else if(fObjRot[2] > 180 && < 270)  MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1], fObjPos[2]+100, 50); // move +Z
+            else if(fObjRot[2] > 270 && < 360)  MoveDynamicObject(_submarineObject, fObjPos[0], fObjPos[1]+100, fObjPos[2], 50); // move +Y
+*/
             MoveDynamicObject(_submarineObject, fObjPos[0]+100, fObjPos[1], fObjPos[2], 50);
             print("SRV: The Submarine is moving FORWARD");
         }
 
-        if(iLR > 0) // LEFT
+        if(iLR == KEY_LEFT) // LEFT
         {
             new Float:fObjRot[3];
             GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
@@ -220,7 +245,7 @@ public OnPlayerUpdate(playerid)
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
             SetPlayerCameraLookAt(playerid, posArr{fObjPos});
         }
-        else if(iLR < 0) // RIGHT
+        else if(iLR == KEY_RIGHT) // RIGHT
         {
             new Float:fObjRot[3];
             GetDynamicObjectRot(_submarineObject, posArr{fObjRot});
@@ -230,7 +255,29 @@ public OnPlayerUpdate(playerid)
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
             SetPlayerCameraLookAt(playerid, posArr{fObjPos});
         }
+        //else if(iKeys == KEY_SPRINT) // BOOST
+        else if(iKeys == KEY_JUMP) // Surface
+        {
+            new Float:fObjPos[3];
+            GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
+            if(fObjPos[2] > 4)
+            {
+                // Don't let it go higher
+                SetDynamicObjectRot(_submarineObject, 0.0000, 0.0000, 0.0000);
+                return 0;
+            }
+            else
+            {
+                // Keep going
+                SetDynamicObjectRot(_submarineObject, -15.0000, 0.0000, 0.0000);
+            }
+            
 
+        }
+        else if(iKeys == KEY_CROUCH) // Dive
+        {
+            SetDynamicObjectRot(_submarineObject, 6.0000, 0.0000, 0.0000);
+        }
     }
 
     return 1;
@@ -320,23 +367,6 @@ CMD:dive(playerid, params[]) // this doesnt work
     return 1;
 }
 */
-
-CMD:rotatesubmarine(playerid, params[]) // Eventually turn into a key press
-{
-    if(GetPVarInt(playerid, "_subDriver"))
-    {
-        MoveDynamicObject(_submarineObject, 0.00, 0.00, 0.0001, 0.0001, 0.00, 0.00, 90.0);
-
-        new 
-            Float:fobjPos[3];
-
-        GetDynamicObjectPos(_submarineObject, posArr{fobjPos});
-        SetPlayerCameraLookAt(playerid, posArr{fobjPos});
-        TogglePlayerControllable(playerid, false);
-    }
-    else SendClientMessage(playerid, COL_GREY, "ERR: You're not piloting the submarine!");
-    return 1;
-}
 
 CMD:weapon(playerid, params[])
 {
