@@ -202,6 +202,10 @@ public OnPlayerUpdate(playerid)
 
             MoveDynamicObject(_submarineObject, fObjPos[0]-100, fObjPos[1], fObjPos[2], 50);
             print("SRV: The Submarine is moving BACKWARDS");
+
+            //x += (0.5 * floatsin(-gSubmarineInfo[sAngle], degrees));
+            //y += (0.5 * floatcos(-gSubmarineInfo[sAngle], degrees));
+            //SetObjectPos(_submarineObject, x, y, z);
         }
         else if(iUD == KEY_UP) // Pressing UP
         {
@@ -211,6 +215,10 @@ public OnPlayerUpdate(playerid)
 
             MoveDynamicObject(_submarineObject, fObjPos[0]+100, fObjPos[1], fObjPos[2], 50);
             print("SRV: The Submarine is moving FORWARD");
+
+            //x += (1.5 * floatsin(-gSubmarineInfo[sAngle], degrees));
+            //y += (1.5 * floatcos(-gSubmarineInfo[sAngle], degrees));
+            //SetObjectPos(_submarineObject, x, y, z);
         }
 
         if(iLR == KEY_LEFT) // LEFT
@@ -222,6 +230,8 @@ public OnPlayerUpdate(playerid)
             new Float:fObjPos[3];
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
             SetPlayerCameraLookAt(playerid, posArr{fObjPos});
+            
+            //gSubmarineInfo[sAngle] = z;
         }
         else if(iLR == KEY_RIGHT) // RIGHT
         {
@@ -232,6 +242,8 @@ public OnPlayerUpdate(playerid)
             new Float:fObjPos[3];
             GetDynamicObjectPos(_submarineObject, posArr{fObjPos});
             SetPlayerCameraLookAt(playerid, posArr{fObjPos});
+            
+            //gSubmarineInfo[sAngle] = z;
         }
         //else if(iKeys == KEY_SPRINT) // BOOST
         else if(iKeys == KEY_JUMP) // Surface
@@ -399,6 +411,21 @@ public cameraTimer(playerid)
 
     SetPlayerCameraPos(playerid, fsubPos[0]-50, fsubPos[1], fsubPos[2]+20);
     SetPlayerCameraLookAt(playerid, posArr{fsubPos});
+}
+
+stock Float:GetXYInFrontOfObject(objectid, playerid, &Float:x, &Float:y, Float:distance)
+{
+    new Float:a;
+    GetObjectPos(objectid, x, y, a);
+    GetPlayerFacingAngle(playerid, a);
+
+    x += (distance * floatsin(-a, degrees));
+    y += (distance * floatcos(-a, degrees));
+}
+
+stock GetDistance( Float:x1, Float:y1, Float:z1, Float:x2, Float:y2, Float:z2 )
+{
+    return floatround( floatsqroot( ( ( x1 - x2 ) * ( x1 - x2 ) ) + ( ( y1 - y2 ) * ( y1 - y2 ) ) + ( ( z1 - z2 ) * ( z1 - z2 ) ) ) );
 }
 
 stock ReturnPlayerName(iPlayerID)
