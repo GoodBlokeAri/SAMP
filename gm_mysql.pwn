@@ -658,7 +658,7 @@ stock ReturnIP(iPlayerID)
 stock randEx(min, max) 
 {
 	/*
-			Thank you Alex Cole (Y_LESS)
+		Thank you Alex Cole (Y_LESS)
 	*/
 	return random(max - min) + min;
 }
