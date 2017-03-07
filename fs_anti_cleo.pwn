@@ -17,6 +17,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart
         this typically means that the player would be too far from the bullets origin that is otherwise realistic
         tl:dr: player is too far from where the bullet was shot from, likely floating above their target using CAM hack or Ghost Hack
     */
+	
 	if(fDistance > 0.980) // does the players distance from the bullets origin exceed 0.980?
 	{
         new szString[220], szWepName[30];
@@ -28,7 +29,6 @@ public OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart
         
         format(szString, sizeof(szString), "{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may POSSIBLY be using a Ghost CLEO. Shot %s (ID: %d) with %s from %0.1f meters.",
         ReturnPlayerName(playerid), playerid,ReturnPlayerName(damagedid), damagedid, szWepName, fDistance);
-
 
         // return 0; un-comment this if you want possible hackers to not do any damage.
 	}
