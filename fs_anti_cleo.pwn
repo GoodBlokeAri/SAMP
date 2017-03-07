@@ -32,6 +32,5 @@ public OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart
 
         // return 0; un-comment this if you want possible hackers to not do any damage.
 	}
-
     return 1;
 }
